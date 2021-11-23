@@ -3,6 +3,7 @@ import { Link, Route } from 'react-router-dom'
 import Heading from './reusables/Heading'
 import Home from './components/Home'
 import Register from './components/admin/Register'
+import Login from './components/admin/Login'
 
 const NavBar = (props) => {
     return (
@@ -56,8 +57,9 @@ const NavBar = (props) => {
                 </div>
             </nav>
 
-            <Route path="/" component={Home} exact/>
-            <Route path="/admin/register" component={Register} exact/>
+            <Route path="/" component={Home} exact />
+            <Route path="/admin/register" component={Register} />
+            <Route path="/admin/login" component={Login} />
         </div>
         
     )
