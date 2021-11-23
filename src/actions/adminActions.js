@@ -42,6 +42,7 @@ export const startLoginAdmin = (loginData) => {
                     button: 'Cancel'
                 })
                 localStorage.setItem('token', result.token)
+                dispatch(startGetAdmin(result.token))
             }
         })
         .catch((error) => {
@@ -54,6 +55,39 @@ export const startLoginAdmin = (loginData) => {
 export const loginError = (message) => {
     return {
         type: 'LOGIN_ERROR',
+        payload: message
+    }
+}
+
+export const startGetAdmin = (token) => {
+    return (dispatch) => {
+        axios.get('https://dct-e-learning.herokuapp.com/api/admin/account', {
+            headers: {
+                "Authorization": token
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            const result = response.data
+            dispatch(setAdmin(result))
+        })
+        .catch((error) => {
+            console.log(error.message)
+            dispatch(accountError(error.message))
+        })
+    }
+}
+
+export const setAdmin = (admin) => {
+    return {
+        type: 'SET_ADMIN',
+        payload: admin
+    }
+}
+
+export const accountError = (message) => {
+    return {
+        type: 'ACCOUNT_ERROR',
         payload: message
     }
 }
