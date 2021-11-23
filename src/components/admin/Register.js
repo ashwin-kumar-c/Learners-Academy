@@ -1,17 +1,23 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import Heading from '../../reusables/Heading'
 import Input from '../../reusables/Input'
 import Button from '../../reusables/Button'
+import { startRegsiterAdmin } from '../../actions/adminActions'
 
 const Register = (props) => {
+
+    const dispatch = useDispatch()
 
     const validationSchema = Yup.object({
         username: Yup.string().required('Required'),
         email: Yup.string().email('Invalid email format').required('Required'),
         password: Yup.string().min(8).max(128).required('Required'),
-        name: Yup.string().required('Required')
+        academy: Yup.object({
+            name: Yup.string().required('Academy name required')
+        })
     })
 
     const { handleChange, handleBlur, handleSubmit, values, errors, touched} = useFormik({
@@ -27,10 +33,13 @@ const Register = (props) => {
             const redirect = () => {
                 props.history.push('/admin/login')
             }
-            console.log(values)  // dispatch to be here
+            dispatch(startRegsiterAdmin(values, resetForm, redirect))
         },
         validationSchema
     })
+
+    console.log('form values', values)
+
 
     const handleClick = () => {
         props.history.push('/')
@@ -56,7 +65,7 @@ const Register = (props) => {
                             name="username"
                             placeholder="Enter username"
                         />
-                        { touched.username && errors.username ? <div>{errors.username}</div> : null }
+                        { touched.username && errors.username ? <div className="form-text">{errors.username}</div> : null }
 	                </div>
                 </div>
 
@@ -71,7 +80,7 @@ const Register = (props) => {
                             name="email"
                             placeholder="Enter email"
                         />
-                        { touched.email && errors.email ? <div>{errors.email}</div> : null }
+                        { touched.email && errors.email ? <div className="form-text">{errors.email}</div> : null }
                     </div>
                 </div>
 
@@ -86,7 +95,7 @@ const Register = (props) => {
                             name="password"
                             placeholder="Enter password"
                         />
-                        { touched.password && errors.password ? <div>{errors.password}</div> : null }
+                        { touched.password && errors.password ? <div className="form-text">{errors.password}</div> : null }
                     </div>
                 </div>
 
@@ -98,10 +107,10 @@ const Register = (props) => {
                             value={values.academy.name}
                             handleChange={handleChange}
                             handleBlur={handleBlur}
-                            name="academy-name"
+                            name="academy.name"
                             placeholder="Enter academy name"
                         />
-                        { touched.name && errors.name ? <div>{errors.name}</div> : null }
+                        { Object.keys(touched).includes('academy') && Object.keys(errors).includes('academy')? <div className="form-text">{errors.academy.name}</div> : null  }
                     </div>
                 </div>
                 

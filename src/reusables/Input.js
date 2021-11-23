@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Input = (props) => {
-    const { className, type, value, handleChange, name, placeholder } = props
+    const { className, type, value, handleChange, handleBlur, name, placeholder } = props
 
     return (
         <input
@@ -9,6 +9,7 @@ const Input = (props) => {
             type={type}
             value={value}
             onChange={handleChange}
+            onBlur={handleBlur}
             name={name}
             placeholder={placeholder}
         />
