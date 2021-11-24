@@ -38,7 +38,7 @@ const NavBar = (props) => {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-warning">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
                     <Heading
                         className="navbar-brand"
