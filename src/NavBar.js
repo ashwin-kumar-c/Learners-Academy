@@ -7,6 +7,7 @@ import Home from './components/Home'
 import Register from './components/admin/Register'
 import Login from './components/admin/Login'
 import Dashboard from './components/admin/Dashboard'
+import Account from './components/admin/Account'
 import { startGetAdmin } from './actions/adminActions'
 import { setAdmin } from './actions/adminActions'
 
@@ -69,6 +70,9 @@ const NavBar = (props) => {
                                     { Object.keys(data).length > 0 ? (
                                         <>
                                             <li>
+                                                <Link className="dropdown-item" to="/admin/account"> Account</Link>
+                                            </li>
+                                            <li>
                                                 <Link className="dropdown-item" to="/dashboard"> Dashboard</Link>
                                             </li>
                                             <li>
@@ -106,6 +110,7 @@ const NavBar = (props) => {
             <Route path="/" component={Home} exact />
             <Route path="/admin/register" component={Register} />
             <Route path="/admin/login" component={Login} />
+            <Route path="/admin/account" component={Account}/>
             <Route path="/dashboard" component={Dashboard} />
         </div>
         

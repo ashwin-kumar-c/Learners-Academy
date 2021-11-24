@@ -29,7 +29,7 @@ const Login = (props) => {
             const redirect = () => {
                 props.history.push('/')
             }
-            dispatch(startLoginAdmin(values))
+            dispatch(startLoginAdmin(values, resetForm, redirect))
         },
         validationSchema
     })

@@ -26,7 +26,7 @@ export const registerError = (message) => {
     }
 }
 
-export const startLoginAdmin = (loginData) => {
+export const startLoginAdmin = (loginData, resetForm, redirect) => {
     return (dispatch) => {
         axios.post('https://dct-e-learning.herokuapp.com/api/admin/login', loginData)
         .then((response) => {
@@ -43,6 +43,8 @@ export const startLoginAdmin = (loginData) => {
                 })
                 localStorage.setItem('token', result.token)
                 dispatch(startGetAdmin(result.token))
+                resetForm()
+                redirect()
             }
         })
         .catch((error) => {
@@ -67,12 +69,10 @@ export const startGetAdmin = (token) => {
             }
         })
         .then((response) => {
-            console.log(response.data)
             const result = response.data
             dispatch(setAdmin(result))
         })
         .catch((error) => {
-            console.log(error.message)
             dispatch(accountError(error.message))
         })
     }
