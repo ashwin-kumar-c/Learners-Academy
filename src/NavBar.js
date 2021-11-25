@@ -8,8 +8,7 @@ import Register from './components/admin/Register'
 import Login from './components/admin/Login'
 import Dashboard from './components/admin/Dashboard'
 import Account from './components/admin/Account'
-import { startGetAdmin } from './actions/adminActions'
-import { setAdmin } from './actions/adminActions'
+import { startGetAdmin,setAdmin } from './actions/adminActions'
 
 const NavBar = (props) => {
 
