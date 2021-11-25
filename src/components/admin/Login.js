@@ -66,7 +66,7 @@ const Login = (props) => {
                     <div className="col-sm-6">
                         <Input
                             className="form-control"
-                            type="text"
+                            type="password"
                             value={values.password}
                             handleChange={handleChange}
                             handleBlur={handleBlur}

@@ -2,12 +2,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import Heading from '../../reusables/Heading'
 import Input from '../../reusables/Input'
 import Button from '../../reusables/Button'
-import { startRegsiterAdmin } from '../../actions/adminActions'
+import Heading from '../../reusables/Heading'
+import { startRegsiterAdmin, startUpdateAdmin } from '../../actions/adminActions'
 
 const Register = (props) => {
+    const { email: adminEmail, username: adminUsername, academyName, _id, handleToggle } = props
 
     const dispatch = useDispatch()
 
@@ -24,20 +25,28 @@ const Register = (props) => {
         })
     })
 
-    const { handleChange, handleBlur, handleSubmit, values, errors, touched} = useFormik({
+    const { handleChange, handleBlur, handleSubmit, values, errors, touched } = useFormik({
         initialValues: {
-            username: '',
-            email: '',
+            username: adminUsername ? adminUsername : '',
+            email: adminEmail ? adminEmail : '',
             password: '',
             academy: {
-                name: ''
+                name: academyName ? academyName : '',
+                website: ''
             }
         },
         onSubmit: (values, { resetForm }) => {
             const redirect = () => {
                 props.history.push('/admin/login')
             }
-            dispatch(startRegsiterAdmin(values, resetForm, redirect))
+            
+            if(_id) {
+                dispatch(startUpdateAdmin(values, resetForm, props))
+                console.log(values)
+            } else {
+                dispatch(startRegsiterAdmin(values, resetForm, redirect))
+                console.log(values)
+            }
         },
         validationSchema
     })
@@ -47,31 +56,39 @@ const Register = (props) => {
     }
 
     return (
-        <div className="container my-5">
-            <Heading
-                className="my-4"
-                type="h3"
-                title='Register here'
-            />
+        <div className="container">
+            { _id ? (
+                <Heading
+                    className="my-4"
+                    type="h2"
+                    title="Edit Account"
+                />
+            ) : (
+                <Heading
+                    className="my-4"
+                    type="h3"
+                    title='Register here'
+                />
+            )}
             
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={ handleSubmit }>
                 <div className="row mb-3 ">
-	                <div className="col-sm-6">
+                    <div className="col-sm-4">
                         <Input
                             className="form-control"
                             type="text"
-                            value={values.username}
-                            handleChange={handleChange}
-                            handleBlur={handleBlur}
+                            value={ values.username }
+                            handleChange={ handleChange }
+                            handleBlur={ handleBlur }
                             name="username"
                             placeholder="Enter username"
                         />
-                        { touched.username && errors.username ? <div className="form-text">{errors.username}</div> : null }
-	                </div>
+                        { touched.username && errors.username ? <div className="form-text">{ errors.username }</div> : null }
+                    </div>
                 </div>
 
                 <div className="row mb-3 ">
-                    <div className="col-sm-6">
+                    <div className="col-sm-4">
                         <Input
                             className="form-control"
                             type="text"
@@ -81,54 +98,61 @@ const Register = (props) => {
                             name="email"
                             placeholder="Enter email"
                         />
-                        { touched.email && errors.email ? <div className="form-text">{errors.email}</div> : null }
+                        { touched.email && errors.email ? <div className="form-text">{ errors.email }</div> : null }
                     </div>
                 </div>
+                {
+                    !_id && (
+                        <div className="row mb-3 ">
+                            <div className="col-sm-4">
+                                <Input
+                                    className="form-control"
+                                    type="password"
+                                    value={values.password}
+                                    handleChange={handleChange}
+                                    handleBlur={handleBlur}
+                                    name="password"
+                                    placeholder="Enter password"
+                                />
+                                { touched.password && errors.password ? <div className="form-text">{ errors.password }</div> : null }
+                            </div>
+                        </div>
+                    )
+                }
 
                 <div className="row mb-3 ">
-                    <div className="col-sm-6">
+                    <div className="col-sm-4">
                         <Input
                             className="form-control"
                             type="text"
-                            value={values.password}
-                            handleChange={handleChange}
-                            handleBlur={handleBlur}
-                            name="password"
-                            placeholder="Enter password"
-                        />
-                        { touched.password && errors.password ? <div className="form-text">{errors.password}</div> : null }
-                    </div>
-                </div>
-
-                <div className="row mb-3 ">
-                    <div className="col-sm-6">
-                        <Input
-                            className="form-control"
-                            type="text"
-                            value={values.academy.name}
-                            handleChange={handleChange}
-                            handleBlur={handleBlur}
+                            value={ values.academy.name }
+                            handleChange={ handleChange }
+                            handleBlur={ handleBlur }
                             name="academy.name"
                             placeholder="Enter academy name"
                         />
-                        { Object.keys(touched).includes('academy') && Object.keys(errors).includes('academy')? <div className="form-text">{errors.academy.name}</div> : null  }
+                        { Object.keys(touched).includes('academy') && Object.keys(errors).includes('academy')? <div className="form-text">{ errors.academy.name }</div> : null  }
                     </div>
                 </div>
-                
+
                 <Input
                     className="btn btn-outline-primary mt-3 me-4"
                     type="submit"
                     value="Register"
                 />
 
-                <Button
-                    type="button"
-                    className="btn btn-outline-secondary mt-3"
-                    handleClick={handleClick}
-                    value="Cancel"
-                />
+                {
+                    !_id && (
+                        <Button
+                            type="button"
+                            className="btn btn-outline-secondary mt-3"
+                            handleClick={ handleClick }
+                            value="Cancel"
+                        />
+                    )
+                }
             </form>
-            {serverError.register && <div className="text-danger my-4">{serverError.register}</div>}
+            { serverError.register && <div className="text-danger my-4">{ serverError.register }</div> }
         </div>
     )
 }

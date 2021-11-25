@@ -91,3 +91,29 @@ export const accountError = (message) => {
         payload: message
     }
 }
+
+export const startUpdateAdmin = (editedData, resetForm, props) => {
+    console.log(editedData)
+    return (dispatch) => {
+        axios.put('https://dct-e-learning.herokuapp.com/api/admin', editedData, {
+            headers: {
+                'Authorization' : localStorage.getItem('token')
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            // dispatch(editAdmin())
+            resetForm()
+            props.handleToggle()
+        })
+        .catch((error) => {
+            console.log(error.message)
+        })
+    }
+}
+
+// export const editAdmin = () => {
+//     return {
+
+//     }
+// }
