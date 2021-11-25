@@ -4,10 +4,12 @@ import adminReducer from '../reducers/adminReducer'
 import studentsReducer from '../reducers/studentsReducer'
 
 const configureStore = () => {
-    const store = createStore(combineReducers({
+    const rootReducer = {
         admin: adminReducer,
         students: studentsReducer
-    }), applyMiddleware(thunk))
+    }
+    
+    const store = createStore(combineReducers(rootReducer),applyMiddleware(thunk))
     return store
 }
 
