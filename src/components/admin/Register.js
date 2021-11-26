@@ -111,7 +111,7 @@ const Register = (props) => {
                             name="academy.name"
                             placeholder="Enter academy name"
                         />
-                        { Object.keys(touched).includes('academy') && Object.keys(errors).includes('academy')? <div className="form-text">{errors.academy.name}</div> : null  }
+                        { (Object.keys(touched).includes('academy') && Object.keys(errors).includes('academy')) && <span className="form-text">{errors.academy.name}</span>}
                     </div>
                 </div>
                 
