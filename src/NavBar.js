@@ -6,7 +6,7 @@ import Heading from './reusables/Heading'
 import Home from './components/Home'
 import Register from './components/admin/Register'
 import Login from './components/admin/Login'
-import Dashboard from './components/admin/Dashboard'
+import Students from './components/admin/Students'
 import Account from './components/admin/Account'
 import { startGetAdmin, setAdmin } from './actions/adminActions'
 
@@ -15,7 +15,7 @@ const NavBar = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('admin-token')
         if(token) {
             dispatch(startGetAdmin(token))
         }
@@ -26,7 +26,7 @@ const NavBar = (props) => {
     })
 
     const handleLogout = () => {
-        localStorage.removeItem('token')
+        localStorage.removeItem('admin-token')
         swal({
             title: 'Successfully logged out',
             button: 'Cancel'
@@ -37,7 +37,7 @@ const NavBar = (props) => {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container">
                     <Heading
                         className="navbar-brand"
@@ -69,10 +69,10 @@ const NavBar = (props) => {
                                     { Object.keys(data).length > 0 ? (
                                         <>
                                             <li>
-                                                <Link className="dropdown-item" to="/admin/account"> Account</Link>
+                                                <Link className="dropdown-item" to="/admin/account"> Account </Link>
                                             </li>
                                             <li>
-                                                <Link className="dropdown-item" to="/dashboard"> Dashboard</Link>
+                                                <Link className="dropdown-item" to="/dashboard"> Students </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="#" onClick={handleLogout}> Logout </Link>
@@ -110,9 +110,8 @@ const NavBar = (props) => {
             <Route path="/admin/register" component={Register} />
             <Route path="/admin/login" component={Login} />
             <Route path="/admin/account" component={Account}/>
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={Students} />
         </div>
-        
     )
 }
 

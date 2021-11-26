@@ -41,7 +41,7 @@ export const startLoginAdmin = (loginData, resetForm, redirect) => {
                     title: 'Successfully logged in',
                     button: 'Cancel'
                 })
-                localStorage.setItem('token', result.token)
+                localStorage.setItem('admin-token', result.token)
                 dispatch(startGetAdmin(result.token))
                 resetForm()
                 redirect()
@@ -97,7 +97,7 @@ export const startUpdateAdmin = (editedData, resetForm, props) => {
     return (dispatch) => {
         axios.put('https://dct-e-learning.herokuapp.com/api/admin', editedData, {
             headers: {
-                'Authorization' : localStorage.getItem('token')
+                'Authorization' : localStorage.getItem('admin-token')
             }
         })
         .then((response) => {
