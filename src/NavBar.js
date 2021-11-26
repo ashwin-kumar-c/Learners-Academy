@@ -8,6 +8,7 @@ import Register from './components/admin/Register'
 import Login from './components/admin/Login'
 import Students from './components/admin/Students'
 import Account from './components/admin/Account'
+import StudentRegister from './components/admin/StudentRegister'
 import { startGetAdmin, setAdmin } from './actions/adminActions'
 
 const NavBar = (props) => {
@@ -21,8 +22,8 @@ const NavBar = (props) => {
         }
     }, [])
 
-    const data = useSelector((state) => {
-        return state.admin.data
+    const adminData = useSelector((state) => {
+        return state.admin.adminData
     })
 
     const handleLogout = () => {
@@ -66,13 +67,13 @@ const NavBar = (props) => {
                                     to="/admin"
                                 > Admin </Link>
                                 <ul className="dropdown-menu">
-                                    { Object.keys(data).length > 0 ? (
+                                    { Object.keys(adminData).length > 0 ? (
                                         <>
                                             <li>
                                                 <Link className="dropdown-item" to="/admin/account"> Account </Link>
                                             </li>
                                             <li>
-                                                <Link className="dropdown-item" to="/dashboard"> Students </Link>
+                                                <Link className="dropdown-item" to="/admin/students"> Students </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="#" onClick={handleLogout}> Logout </Link>
@@ -110,7 +111,8 @@ const NavBar = (props) => {
             <Route path="/admin/register" component={Register} />
             <Route path="/admin/login" component={Login} />
             <Route path="/admin/account" component={Account}/>
-            <Route path="/dashboard" component={Students} />
+            <Route path="/admin/students" component={Students} exact/>
+            <Route path="/admin/students/register" component={ StudentRegister }/>
         </div>
     )
 }

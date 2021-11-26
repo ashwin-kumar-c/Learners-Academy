@@ -43,6 +43,7 @@ export const startLoginAdmin = (loginData, resetForm, redirect) => {
                 })
                 localStorage.setItem('admin-token', result.token)
                 dispatch(startGetAdmin(result.token))
+                dispatch(startGetStudents(result.token))
                 resetForm()
                 redirect()
             }
@@ -102,7 +103,8 @@ export const startUpdateAdmin = (editedData, resetForm, props) => {
         })
         .then((response) => {
             console.log(response.data)
-            // dispatch(editAdmin())
+            const result = response.data
+            dispatch(editAdmin(result))
             resetForm()
             props.handleToggle()
         })
@@ -112,8 +114,60 @@ export const startUpdateAdmin = (editedData, resetForm, props) => {
     }
 }
 
-// export const editAdmin = () => {
-//     return {
+export const editAdmin = (editedData) => {
+    return {
+        type: 'EDIT_ADMIN',
+        payload: editedData
+    }
+}
 
-//     }
-// }
+export const startRegisterStudent = (studentData, resetForm, redirect) => {
+    return (dispatch) => {
+        axios.post('https://dct-e-learning.herokuapp.com/api/admin/students', studentData, {
+            headers: {
+                "Authorization": localStorage.getItem('admin-token')
+            }
+        })
+        .then((response) => {
+            const result = response.data
+            resetForm()
+            redirect()
+        })
+        .catch((error) => {
+            console.log(error.message)
+            dispatch(RegisterStudentError(error.message))
+        })
+    }
+}
+
+export const RegisterStudentError = (message) => {
+    return {
+        type: 'REGISTER_STUDENT_ERROR',
+        payload: message
+    }
+}
+
+export const startGetStudents = (token) => {
+    return (dispatch) => {
+        axios.get('https://dct-e-learning.herokuapp.com/api/admin/students', {
+            headers: {
+                'Authorization' : token
+            }
+        })
+        .then((response) => {
+            // console.log(response.data)
+            const result = response.data
+            dispatch(setStudents(result))
+        })
+        .catch((error) => {
+            console.log(error.message)
+        })
+    }
+} 
+
+export const setStudents = (studentData) => {
+    return {
+        type: 'SET_STUDENTS',
+        payload: studentData
+    }
+}

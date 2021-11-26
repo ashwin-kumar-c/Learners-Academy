@@ -8,7 +8,7 @@ import Heading from '../../reusables/Heading'
 import { startRegsiterAdmin, startUpdateAdmin } from '../../actions/adminActions'
 
 const Register = (props) => {
-    const { email: adminEmail, username: adminUsername, academyName, _id, handleToggle } = props
+    const { email: adminEmail, username: adminUsername, academyName, role, handleToggle } = props
 
     const dispatch = useDispatch()
 
@@ -19,7 +19,7 @@ const Register = (props) => {
     const validationSchema = Yup.object({
         username: Yup.string().required('Required'),
         email: Yup.string().email('Invalid email format').required('Required'),
-        password: Yup.string().min(8).max(128).required('Required'),
+        password: role !== 'admin' && (Yup.string().min(8).max(128).required('Required')),
         academy: Yup.object({
             name: Yup.string().required('Academy name required')
         })
@@ -39,13 +39,10 @@ const Register = (props) => {
             const redirect = () => {
                 props.history.push('/admin/login')
             }
-            
-            if(_id) {
+            if(role === 'admin') {
                 dispatch(startUpdateAdmin(values, resetForm, props))
-                console.log(values)
             } else {
                 dispatch(startRegsiterAdmin(values, resetForm, redirect))
-                console.log(values)
             }
         },
         validationSchema
@@ -57,7 +54,7 @@ const Register = (props) => {
 
     return (
         <div className="container">
-            { _id ? (
+            { role === 'admin' ? (
                 <Heading
                     className="my-4"
                     type="h2"
@@ -102,7 +99,7 @@ const Register = (props) => {
                     </div>
                 </div>
                 {
-                    !_id && (
+                    role !== 'admin' && (
                         <div className="row mb-3 ">
                             <div className="col-sm-4">
                                 <Input
@@ -142,7 +139,7 @@ const Register = (props) => {
                 />
 
                 {
-                    !_id && (
+                    role !== 'admin' && (
                         <Button
                             type="button"
                             className="btn btn-outline-secondary mt-3"

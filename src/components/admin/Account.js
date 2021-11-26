@@ -21,15 +21,15 @@ const Account = (props) => {
             { toggle ? (
                 <>
                     <Register
-                        email={ admin.data.email }
-                        username={ admin.data.username }
-                        academyName={ admin.data.academy.name }
-                        _id={admin.data && admin.data._id}
+                        email={ admin.adminData.email }
+                        username={ admin.adminData.username }
+                        academyName={ admin.adminData.academy.name }
+                        role={admin.adminData.role}
                         handleToggle={ handleToggle }
                     />
                     <Button
                         type="button"
-                        className="btn btn-outline-secondary my-3"
+                        className="btn btn-outline-secondary my-3 mx-3"
                         value="Cancel"
                         handleClick={handleToggle}
                     />
@@ -41,23 +41,23 @@ const Account = (props) => {
                         type="h3"
                         title="Account"
                     /> 
-                    { Object.keys(admin.data).length > 0 ? (
+                    { Object.keys(admin.adminData).length > 0 ? (
                         <>
                             <Paragraph
                                 className="lead"
-                                text={`Username - ${admin.data.username}`}
+                                text={`Username - ${admin.adminData.username}`}
                             />
                             <Paragraph
                                 className="lead"
-                                text={`Email - ${admin.data.email}`}
+                                text={`Email - ${admin.adminData.email}`}
                             />
                             <Paragraph
                                 className="lead"
-                                text={`Role - ${admin.data.role}`}
+                                text={`Role - ${admin.adminData.role}`}
                             />
                             <Paragraph
                                 className="lead"
-                                text={`Academy Name - ${ admin.data.academy.name }`}
+                                text={`Academy Name - ${ admin.adminData.academy.name }`}
                             />
 
                             <Button
