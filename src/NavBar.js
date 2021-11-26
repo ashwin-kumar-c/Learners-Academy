@@ -2,12 +2,14 @@ import React, { useEffect } from 'react'
 import { Link, Route, withRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import swal from 'sweetalert'
-import Heading from './reusables/Heading'
+import Heading from './components/reusables/Heading'
 import Home from './components/Home'
 import Register from './components/admin/Register'
 import Login from './components/admin/Login'
 import Students from './components/admin/Students'
 import Account from './components/admin/Account'
+import Dashboard from './components/admin/Dashboard'
+import Courses from './components/admin/Courses'
 import StudentRegister from './components/admin/StudentRegister'
 import { startGetAdmin, setAdmin } from './actions/adminActions'
 
@@ -76,6 +78,12 @@ const NavBar = (props) => {
                                                 <Link className="dropdown-item" to="/admin/students"> Students </Link>
                                             </li>
                                             <li>
+                                                <Link className="dropdown-item" to="/admin/courses"> Courses </Link>
+                                            </li>
+                                            <li>
+                                                <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>
+                                            </li>
+                                            <li>
                                                 <Link className="dropdown-item" to="#" onClick={handleLogout}> Logout </Link>
                                             </li>
                                         </>
@@ -113,6 +121,8 @@ const NavBar = (props) => {
             <Route path="/admin/account" component={Account}/>
             <Route path="/admin/students" component={Students} exact/>
             <Route path="/admin/students/register" component={ StudentRegister }/>
+            <Route path="/admin/dashboard" component={ Dashboard }/>
+            <Route path="/admin/courses" component={ Courses }/>
         </div>
     )
 }

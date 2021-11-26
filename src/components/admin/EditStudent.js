@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../reusables/Button'
+import Button from '../reusables/Button'
 
 const EditStudent = (props) => {
 

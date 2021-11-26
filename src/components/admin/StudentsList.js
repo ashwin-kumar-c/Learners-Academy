@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import EditStudent from './EditStudent'
-import Button from '../../reusables/Button'
+import Button from '../reusables/Button'
 
 const StudentsList = (props) => {
 
