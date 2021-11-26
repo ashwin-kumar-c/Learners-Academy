@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import EditStudent from './EditStudent'
 import Button from '../../reusables/Button'
 
 const StudentsList = (props) => {
@@ -32,7 +33,7 @@ const StudentsList = (props) => {
                                     <td>{ student.email }</td>
                                     <td>{ String(student.isAllowed) }</td>
                                     <td>
-                                        <Button type="button" className="btn btn-warning" value="Edit"/>
+                                        <EditStudent/>
                                     </td>
                                     <td>
                                         <Button type="button" className="btn btn-danger" value="Delete"/>

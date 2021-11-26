@@ -157,7 +157,7 @@ export const startGetStudents = (token) => {
         .then((response) => {
             // console.log(response.data)
             const result = response.data
-            dispatch(setStudents(result))
+            dispatch(setStudents(result.reverse()))
         })
         .catch((error) => {
             console.log(error.message)
