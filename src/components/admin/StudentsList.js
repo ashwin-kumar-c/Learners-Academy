@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import EditStudent from './EditStudent'
 import StudentDetails from './StudentDetails'
 import DeleteStudent from './DeleteStudent'
-import Button from '../reusables/Button'
+
 
 const StudentsList = (props) => {
 
     const dispatch = useDispatch()
 
-    const studentsData = useSelector((state) => {
-        return state.admin.studentsData
+    const admin = useSelector((state) => {
+        return state.admin
     })
 
     return (
@@ -28,7 +28,7 @@ const StudentsList = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        { studentsData.map((student) => {
+                        { admin.studentsData.map((student) => {
                             return (
                                 <tr key={ student._id }>
                                     <td>{ student.name }</td>
@@ -49,6 +49,8 @@ const StudentsList = (props) => {
                     </tbody>
                 </table>
             </div>
+            { admin.errors.getStudentsError && <div className="text-danger my-5">{ admin.errors.getStudentsError }</div> }
+            { admin.errors.deleteStudentError && <div className="text-danger my-5">{ admin.errors.deleteStudentError }</div> }
         </div>
     )
 }

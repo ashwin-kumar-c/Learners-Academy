@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFormik } from 'formik'
+import { useFormik, Field, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from 'yup'
 import Heading from '../reusables/Heading'
@@ -21,6 +21,7 @@ const StudentRegister = (props) => {
         name: Yup.string().required('Required'),
         email: Yup.string().email('Invalid email format').required('Required'),
         password: role !== 'student' && Yup.string().min(8).max(128).required('Required'),
+        checked: Yup.array().required('Required'),
         isAllowed: Yup.string().required('Required')
     })
 
@@ -59,7 +60,7 @@ const StudentRegister = (props) => {
                 <Heading
                     className="my-4"
                     type="h3"
-                    title='Register New Student'
+                    title='Create New Student'
                 />
             )}
         
@@ -143,6 +144,7 @@ const StudentRegister = (props) => {
                 
             </form>
             { serverError.registerStudent && <div className="text-danger py-4">{ serverError.registerStudent }</div> }
+            { serverError.updateStudentError && <div className="text-danger py-4">{ serverError.updateStudentError }</div> }
         </div>
     )
 }

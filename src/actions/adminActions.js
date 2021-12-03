@@ -131,10 +131,15 @@ export const startRegisterStudent = (studentData, resetForm, redirect) => {
         .then((response) => {
             const result = response.data
             resetForm()
+            swal({
+                // title: "Success",
+                title: 'Created New Student',
+                icon: 'success',
+                button: 'Cancel'
+            })
             redirect()
         })
         .catch((error) => {
-            console.log(error.message)
             dispatch(RegisterStudentError(error.message))
         })
     }
@@ -161,6 +166,7 @@ export const startGetStudents = (token) => {
         })
         .catch((error) => {
             console.log(error.message)
+            dispatch(getStudentsError(error.message))
         })
     }
 } 
@@ -169,6 +175,13 @@ export const setStudents = (studentData) => {
     return {
         type: 'SET_STUDENTS',
         payload: studentData
+    }
+}
+
+export const getStudentsError = (message) => {
+    return {
+        type: 'GET_STUDENTS_ERROR',
+        payload: message
     }
 }
 
@@ -184,9 +197,15 @@ export const startUpdateStudent = (editedData, resetForm, _id, closeModal) => {
             dispatch(editStudent(result))
             resetForm()
             closeModal()
+            swal({
+                // title: "Success",
+                title: `Successfully edited student's profile`,
+                icon: 'success',
+                button: 'Cancel'
+            })
         })
         .catch((error) => {
-            console.log(error.message)
+            dispatch(updateStudentError(error.message))
         })
     }
 }
@@ -198,20 +217,47 @@ export const editStudent = (newData) => {
     }
 }
 
+export const updateStudentError = (message) => {
+    return {
+        type: 'UPDATE_STUDENT_ERROR',
+        payload: message
+    }
+}
+
 export const startDeleteStudent = (_id) => {
     return (dispatch) => {
-        axios.delete(`https://dct-e-learning.herokuapp.com/api/admin/students/${_id}`, {
-            headers: {
-                "Authorization" : localStorage.getItem('admin-token')
-            }
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
         })
-        .then((response) => {
-            const result = response.data
-            dispatch(removeStudent(result._id))
-        })
-        .catch((error) => {
-            console.log(error.message);
-        })
+            .then((willDelete) => {
+                if(willDelete) {
+                    axios.delete(`https://dct-e-learning.herokuapp.com/api/admin/students/${_id}`, {
+                    headers: {
+                        "Authorization" : localStorage.getItem('admin-token')
+                    }
+                })
+                    .then((response) => {
+                        const result = response.data
+                        dispatch(removeStudent(result._id))
+                    })
+                    swal('Student has been removed', {
+                        icon: 'success'
+                    })
+                    .catch((error) => {
+                        console.log(error.message)
+                        dispatch(deleteStudentError(error.message))
+                    })
+                }
+                else {
+                    swal('Student data is safe')
+                }
+            })
+            
+        
     }
 }
 
@@ -219,5 +265,12 @@ export const removeStudent = (_id) => {
     return {
         type: 'REMOVE_STUDENT',
         payload: _id
+    }
+}
+
+export const deleteStudentError = (message) => {
+    return {
+        type: 'DELETE_STUDENT_ERROR',
+        payload: message
     }
 }

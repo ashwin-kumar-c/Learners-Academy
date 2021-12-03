@@ -14,7 +14,14 @@ const StudentDetails = (props) => {
             <Button variant="info" onClick={handleShow}>
                 Details
             </Button>
-            <Modal show={ show } onHide={ handleClose }>
+
+            <Modal 
+                show={ show } 
+                onHide={ handleClose }
+                size="md" 
+                aria-labelledby="contained-modal-title-vcenter" 
+                centered
+            >
                 <Modal.Header>
                     <Modal.Title><h4 className="text-primary">{ name }'s Details</h4></Modal.Title>
                 </Modal.Header>
