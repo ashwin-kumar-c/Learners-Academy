@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, Route, withRouter } from 'react-router-dom'
+import { Link, Route, withRouter, Switch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import swal from 'sweetalert'
 import Heading from './components/reusables/Heading'
@@ -11,6 +11,7 @@ import Account from './components/admin/Account'
 import Dashboard from './components/admin/Dashboard'
 import Courses from './components/admin/Courses'
 import StudentRegister from './components/admin/StudentRegister'
+import NotFound from './NotFound'
 import { startGetAdmin, setAdmin } from './actions/adminActions'
 
 const NavBar = (props) => {
@@ -115,14 +116,17 @@ const NavBar = (props) => {
                 </div>
             </nav>
 
-            <Route path="/" component={Home} exact />
-            <Route path="/admin/register" component={Register} />
-            <Route path="/admin/login" component={Login} />
-            <Route path="/admin/account" component={Account}/>
-            <Route path="/admin/students" component={Students} exact/>
-            <Route path="/admin/students/register" component={ StudentRegister }/>
-            <Route path="/admin/dashboard" component={ Dashboard }/>
-            <Route path="/admin/courses" component={ Courses }/>
+             <Switch>                           
+                <Route path="/" component={Home} exact />
+                <Route path="/admin/register" component={Register} />
+                <Route path="/admin/login" component={Login} />
+                <Route path="/admin/account" component={Account} exact/>
+                <Route path="/admin/students" component={Students} exact/>
+                <Route path="/admin/students/register" component={ StudentRegister } />
+                <Route path="/admin/dashboard" component={ Dashboard }/>
+                <Route path="/admin/courses" component={ Courses }/>
+                <Route path="*" component={NotFound}/>
+            </Switch>
         </div>
     )
 }
