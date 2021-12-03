@@ -4,7 +4,7 @@ import { useLocation } from 'react-router'
 const NotFound = (props) => {
     let location = useLocation()
     return (
-        <div className="container m-5 ">
+        <div className="container m-5 text-center">
             <h1>404 Page Not Found</h1>
             <h4>no match for <code>{location.pathname}</code></h4>
         </div>

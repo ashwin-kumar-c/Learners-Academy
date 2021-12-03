@@ -11,7 +11,7 @@ import Account from './components/admin/Account'
 import Dashboard from './components/admin/Dashboard'
 import Courses from './components/admin/Courses'
 import StudentRegister from './components/admin/StudentRegister'
-import NotFound from './NotFound'
+import NotFound from './components/NotFound'
 import StudentLogin from './components/students/StudentLogin'
 import { startGetAdmin, setAdmin } from './actions/adminActions'
 
@@ -118,7 +118,7 @@ const NavBar = (props) => {
                                     to="/student"
                                 > Student </Link>
                                 <ul className="dropdown-menu">
-                                    {localStorage.getItem('student-token') ? (
+                                    {!localStorage.getItem('student-token') ? (
                                         <li>
                                             <Link className="dropdown-item" to="/student/Login"> Login </Link>
                                         </li>
