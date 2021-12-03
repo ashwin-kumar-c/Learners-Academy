@@ -29,29 +29,28 @@ export const registerError = (message) => {
 export const startLoginAdmin = (loginData, resetForm, redirect) => {
     return (dispatch) => {
         axios.post('https://dct-e-learning.herokuapp.com/api/admin/login', loginData)
-        .then((response) => {
-            const result = response.data
-            if(result.hasOwnProperty('errors')) {
-                swal({
-                    title: result.errors,
-                    nutton: 'Cancel'
-                })
-            } else {
-                swal({
-                    title: 'Successfully logged in',
-                    button: 'Cancel'
-                })
-                localStorage.setItem('admin-token', result.token)
-                dispatch(startGetAdmin(result.token))
-                dispatch(startGetStudents(result.token))
-                resetForm()
-                redirect()
-            }
-        })
-        .catch((error) => {
-            console.log(error.message)
-            dispatch(loginError(error.message))
-        })
+            .then((response) => {
+                const result = response.data
+                if(result.hasOwnProperty('errors')) {
+                    swal({
+                        title: result.errors,
+                        button: 'Cancel'
+                    })
+                } else {
+                    swal({
+                        title: 'Successfully logged in',
+                        button: 'Cancel'
+                    })
+                    localStorage.setItem('admin-token', result.token)
+                    dispatch(startGetAdmin(result.token))
+                    dispatch(startGetStudents(result.token))
+                    resetForm()
+                    redirect()
+                }
+            })
+            .catch((error) => {
+                dispatch(loginError(error.message))
+            })
     }
 }
 
@@ -69,13 +68,13 @@ export const startGetAdmin = (token) => {
                 "Authorization": token
             }
         })
-        .then((response) => {
-            const result = response.data
-            dispatch(setAdmin(result))
-        })
-        .catch((error) => {
-            dispatch(accountError(error.message))
-        })
+            .then((response) => {
+                const result = response.data
+                dispatch(setAdmin(result))
+            })
+            .catch((error) => {
+                dispatch(accountError(error.message))
+            })
     }
 }
 
@@ -101,16 +100,16 @@ export const startUpdateAdmin = (editedData, resetForm, props) => {
                 'Authorization' : localStorage.getItem('admin-token')
             }
         })
-        .then((response) => {
-            console.log(response.data)
-            const result = response.data
-            dispatch(editAdmin(result))
-            resetForm()
-            props.handleToggle()
-        })
-        .catch((error) => {
-            console.log(error.message)
-        })
+            .then((response) => {
+                console.log(response.data)
+                const result = response.data
+                dispatch(editAdmin(result))
+                resetForm()
+                props.handleToggle()
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
     }
 }
 
@@ -128,20 +127,20 @@ export const startRegisterStudent = (studentData, resetForm, redirect) => {
                 "Authorization": localStorage.getItem('admin-token')
             }
         })
-        .then((response) => {
-            const result = response.data
-            resetForm()
-            swal({
-                // title: "Success",
-                title: 'Created New Student',
-                icon: 'success',
-                button: 'Cancel'
+            .then((response) => {
+                const result = response.data
+                resetForm()
+                swal({
+                    // title: "Success",
+                    title: 'Created New Student',
+                    icon: 'success',
+                    button: 'Cancel'
+                })
+                redirect()
             })
-            redirect()
-        })
-        .catch((error) => {
-            dispatch(RegisterStudentError(error.message))
-        })
+            .catch((error) => {
+                dispatch(RegisterStudentError(error.message))
+            })
     }
 }
 
@@ -159,15 +158,15 @@ export const startGetStudents = (token) => {
                 'Authorization' : token
             }
         })
-        .then((response) => {
-            // console.log(response.data)
-            const result = response.data
-            dispatch(setStudents(result.reverse()))
-        })
-        .catch((error) => {
-            console.log(error.message)
-            dispatch(getStudentsError(error.message))
-        })
+            .then((response) => {
+                // console.log(response.data)
+                const result = response.data
+                dispatch(setStudents(result.reverse()))
+            })
+            .catch((error) => {
+                console.log(error.message)
+                dispatch(getStudentsError(error.message))
+            })
     }
 } 
 
@@ -192,21 +191,21 @@ export const startUpdateStudent = (editedData, resetForm, _id, closeModal) => {
                 "Authorization" : localStorage.getItem('admin-token')
             }
         })
-        .then((response) => {
-            const result = response.data
-            dispatch(editStudent(result))
-            resetForm()
-            closeModal()
-            swal({
-                // title: "Success",
-                title: `Successfully edited student's profile`,
-                icon: 'success',
-                button: 'Cancel'
+            .then((response) => {
+                const result = response.data
+                dispatch(editStudent(result))
+                resetForm()
+                closeModal()
+                swal({
+                    // title: "Success",
+                    title: `Successfully edited student's profile`,
+                    icon: 'success',
+                    button: 'Cancel'
+                })
             })
-        })
-        .catch((error) => {
-            dispatch(updateStudentError(error.message))
-        })
+            .catch((error) => {
+                dispatch(updateStudentError(error.message))
+            })
     }
 }
 
@@ -240,24 +239,22 @@ export const startDeleteStudent = (_id) => {
                         "Authorization" : localStorage.getItem('admin-token')
                     }
                 })
-                    .then((response) => {
-                        const result = response.data
-                        dispatch(removeStudent(result._id))
-                    })
-                    swal('Student has been removed', {
-                        icon: 'success'
-                    })
-                    .catch((error) => {
-                        console.log(error.message)
-                        dispatch(deleteStudentError(error.message))
-                    })
+                        .then((response) => {
+                            const result = response.data
+                            dispatch(removeStudent(result._id))
+                        })
+                        swal('Student has been removed', {
+                            icon: 'success'
+                        })
+                        .catch((error) => {
+                            console.log(error.message)
+                            dispatch(deleteStudentError(error.message))
+                        })
                 }
                 else {
                     swal('Student data is safe')
                 }
             })
-            
-        
     }
 }
 

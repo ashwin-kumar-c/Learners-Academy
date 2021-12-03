@@ -12,6 +12,7 @@ import Dashboard from './components/admin/Dashboard'
 import Courses from './components/admin/Courses'
 import StudentRegister from './components/admin/StudentRegister'
 import NotFound from './NotFound'
+import StudentLogin from './components/students/StudentLogin'
 import { startGetAdmin, setAdmin } from './actions/adminActions'
 
 const NavBar = (props) => {
@@ -29,8 +30,17 @@ const NavBar = (props) => {
         return state.admin.adminData
     })
 
-    const handleLogout = () => {
+    const handleAdminLogout = () => {
         localStorage.removeItem('admin-token')
+        swal({
+            title: 'Successfully logged out',
+            button: 'Cancel'
+        })
+        dispatch(setAdmin({}))
+        props.history.push('/')
+    }
+    const handleStudentLogout = () => {
+        localStorage.removeItem('student-token')
         swal({
             title: 'Successfully logged out',
             button: 'Cancel'
@@ -85,7 +95,7 @@ const NavBar = (props) => {
                                                 <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>
                                             </li>
                                             <li>
-                                                <Link className="dropdown-item" to="#" onClick={handleLogout}> Logout </Link>
+                                                <Link className="dropdown-item" to="#" onClick={handleAdminLogout}> Logout </Link>
                                             </li>
                                         </>
                                     ) : (
@@ -108,7 +118,22 @@ const NavBar = (props) => {
                                     to="/student"
                                 > Student </Link>
                                 <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="/student/sign-in"> Sign In </Link></li>
+                                    {localStorage.getItem('student-token') ? (
+                                        <li>
+                                            <Link className="dropdown-item" to="/student/Login"> Login </Link>
+                                        </li>
+                                        
+                                    ) : (
+                                        <>
+                                            <li>
+                                                <Link className="dropdown-item" to="/admin/courses"> Courses </Link>
+                                            </li>
+                                            <li>
+                                                <Link className="dropdown-item" to="#" onClick={ handleStudentLogout }>Logout </Link>
+                                            </li>
+                                        </>
+                                        
+                                    )}
                                 </ul>
                             </li>
                         </ul>
@@ -125,6 +150,7 @@ const NavBar = (props) => {
                 <Route path="/admin/students/register" component={ StudentRegister } />
                 <Route path="/admin/dashboard" component={ Dashboard }/>
                 <Route path="/admin/courses" component={ Courses }/>
+                <Route path="/student/login" component={ StudentLogin }/>
                 <Route path="*" component={NotFound}/>
             </Switch>
         </div>
