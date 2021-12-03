@@ -16,6 +16,22 @@ const adminReducer = (state = adminInitialState, action) => {
         case 'SET_STUDENTS' : {
             return {...state, studentsData: [...action.payload]}
         }
+        case 'EDIT_STUDENT' : {
+            const result = state.studentsData.map((student) => {
+                if(student._id === action.payload._id) {
+                    return {...student, ...action.payload}
+                } else {
+                    return {...student}
+                }
+            })
+            return {...state, studentsData: [...result]}
+        }
+        case 'REMOVE_STUDENT' : {
+            const result = state.studentsData.filter((student) => {
+                return student._id !== action.payload
+            })
+            return {...state, studentsData: [...result]}
+        }
         case 'REGISTER_ERROR' : {
             return {...state, errors: {...state.errors, register: action.payload}}
         }

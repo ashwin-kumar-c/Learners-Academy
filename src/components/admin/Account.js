@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Heading from '../reusables/Heading'
 import Paragraph from '../reusables/Paragraph'
 import Register from './Register'
-import Button from '../reusables/Button'
+import Button from '../reusables/Button' 
 
 const Account = (props) => {
     const [ toggle, setToggle ] = useState(false)
@@ -24,15 +24,15 @@ const Account = (props) => {
                         email={ admin.adminData.email }
                         username={ admin.adminData.username }
                         academyName={ admin.adminData.academy.name }
-                        role={admin.adminData.role}
+                        role={ admin.adminData.role }
                         handleToggle={ handleToggle }
                     />
                     <Button
                         type="button"
-                        className="btn btn-outline-secondary my-3 mx-3"
+                        className="btn btn-outline-secondary my-3 mx-2" 
                         value="Cancel"
-                        handleClick={handleToggle}
-                    />
+                        handleClick={ handleToggle }
+                    /> 
                 </>
             ) : (
                 <>

@@ -17,6 +17,7 @@ const Students = (props) => {
     const studentsData = useSelector((state) => {
         return state.admin.studentsData
     })
+    // console.log(studentsData)
 
     return (
         <div className="container">

@@ -114,10 +114,10 @@ export const startUpdateAdmin = (editedData, resetForm, props) => {
     }
 }
 
-export const editAdmin = (editedData) => {
+export const editAdmin = (newData) => {
     return {
         type: 'EDIT_ADMIN',
-        payload: editedData
+        payload: newData
     }
 }
 
@@ -169,5 +169,55 @@ export const setStudents = (studentData) => {
     return {
         type: 'SET_STUDENTS',
         payload: studentData
+    }
+}
+
+export const startUpdateStudent = (editedData, resetForm, _id, closeModal) => {
+    return (dispatch) => {
+        axios.put(`https://dct-e-learning.herokuapp.com/api/students/${_id}`, editedData, {
+            headers: {
+                "Authorization" : localStorage.getItem('admin-token')
+            }
+        })
+        .then((response) => {
+            const result = response.data
+            dispatch(editStudent(result))
+            resetForm()
+            closeModal()
+        })
+        .catch((error) => {
+            console.log(error.message)
+        })
+    }
+}
+
+export const editStudent = (newData) => {
+    return {
+        type: 'EDIT_STUDENT',
+        payload: newData
+    }
+}
+
+export const startDeleteStudent = (_id) => {
+    return (dispatch) => {
+        axios.delete(`https://dct-e-learning.herokuapp.com/api/admin/students/${_id}`, {
+            headers: {
+                "Authorization" : localStorage.getItem('admin-token')
+            }
+        })
+        .then((response) => {
+            const result = response.data
+            dispatch(removeStudent(result._id))
+        })
+        .catch((error) => {
+            console.log(error.message);
+        })
+    }
+}
+
+export const removeStudent = (_id) => {
+    return {
+        type: 'REMOVE_STUDENT',
+        payload: _id
     }
 }

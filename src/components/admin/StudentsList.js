@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import EditStudent from './EditStudent'
+import StudentDetails from './StudentDetails'
+import DeleteStudent from './DeleteStudent'
 import Button from '../reusables/Button'
 
 const StudentsList = (props) => {
@@ -20,9 +22,9 @@ const StudentsList = (props) => {
                             <td> Name </td>
                             <td> Email </td>
                             <td> Allowed </td>
-                            <td> Edit </td>
-                            <td> Delete </td>
                             <td> Details </td>
+                            <td> Edit </td>
+                            <td> Delete </td>  
                         </tr>
                     </thead>
                     <tbody>
@@ -33,13 +35,13 @@ const StudentsList = (props) => {
                                     <td>{ student.email }</td>
                                     <td>{ String(student.isAllowed) }</td>
                                     <td>
-                                        <EditStudent/>
+                                        <StudentDetails {...student} />
                                     </td>
                                     <td>
-                                        <Button type="button" className="btn btn-danger" value="Delete"/>
+                                        <EditStudent {...student} />
                                     </td>
                                     <td>
-                                        <Button type="button" className="btn btn-info" value="Details"/>
+                                        <DeleteStudent {...student} />
                                     </td>
                                 </tr>
                             )

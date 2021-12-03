@@ -32,7 +32,7 @@ const Register = (props) => {
             password: '',
             academy: {
                 name: academyName ? academyName : '',
-                website: ''
+                website: '' 
             }
         },
         onSubmit: (values, { resetForm }) => {
@@ -135,7 +135,7 @@ const Register = (props) => {
                 <Input
                     className="btn btn-outline-primary mt-3 me-4"
                     type="submit"
-                    value="Register"
+                    value={`${role !== 'admin' ? 'Register' : 'Save'}`}
                 />
 
                 {
