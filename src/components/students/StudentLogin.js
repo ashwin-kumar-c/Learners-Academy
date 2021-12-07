@@ -29,7 +29,6 @@ const StudentLogin = (props) => {
                 props.history.push('/') 
             }
             dispatch(startLoginStudent(values, resetForm, redirect))
-            console.log(values)
         },
         validationSchema
     })

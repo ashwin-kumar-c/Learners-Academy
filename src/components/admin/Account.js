@@ -4,6 +4,7 @@ import Heading from '../reusables/Heading'
 import Paragraph from '../reusables/Paragraph'
 import Register from './Register'
 import Button from '../reusables/Button' 
+import Loader from '../reusables/Loader'
 
 const Account = (props) => {
     const [ toggle, setToggle ] = useState(false)
@@ -36,13 +37,13 @@ const Account = (props) => {
                 </>
             ) : (
                 <>
-                    <Heading
-                        className="my-4"
-                        type="h3"
-                        title="Account"
-                    /> 
                     { Object.keys(admin.adminData).length > 0 ? (
                         <>
+                            <Heading
+                                className="my-4"
+                                type="h3"
+                                title="Account"
+                            /> 
                             <Paragraph
                                 className="lead"
                                 text={`Username - ${admin.adminData.username}`}
@@ -68,11 +69,10 @@ const Account = (props) => {
                             />
                         </>
                     ) : (
-                        <Paragraph text="Loading..."/>
+                        <Loader/>
                     ) }
                 </>
             )}
-            
             { admin.errors.account && <div className="text-danger my-5">{admin.errors.account}</div> }
         </div>
     )
