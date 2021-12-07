@@ -41,6 +41,10 @@ const NavBar = (props) => {
         return state.admin.adminData
     })
 
+    const studentData = useSelector((state) => {
+        return state.students.data
+    })
+
     const handleAdminLogout = () => {
         localStorage.removeItem('admin-token')
         swal({
@@ -83,74 +87,77 @@ const NavBar = (props) => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/"> Home </Link>
                             </li>
-                            <li className="nav-item dropdown">
-                                <Link 
-                                    className="nav-link dropdown-toggle" 
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    to="/admin"
-                                > Admin </Link>
-                                <ul className="dropdown-menu">
-                                    { Object.keys(adminData).length > 0 ? (
-                                        <>
-                                            <li>
-                                                <Link className="dropdown-item" to="/admin/account"> Account </Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to="/admin/students"> Students </Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to="/admin/courses"> Courses </Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to="#" onClick={handleAdminLogout}> Logout </Link>
-                                            </li>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <li>
-                                                <Link className="dropdown-item" to="/admin/register"> Register </Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to="/admin/login"> Login </Link>
-                                            </li>
-                                        </>
-                                    ) }
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <Link 
-                                    className="nav-link dropdown-toggle" 
-                                    role="button" 
-                                    data-bs-toggle="dropdown" 
-                                    to="/student"
-                                > Student </Link>
-                                <ul className="dropdown-menu">
-                                    {!localStorage.getItem('student-token') ? (
-                                        <li>
-                                            <Link className="dropdown-item" to="/student/Login"> Login </Link>
-                                        </li>
-                                        
-                                    ) : (
-                                        <>
-                                            <li>
-                                                <Link className="dropdown-item" to="/student/account"> Account </Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to="/courses"> Courses </Link>
-                                            </li>
-                                            <li>
+                            { !Object.keys(studentData).length > 0 && (
+                                <li className="nav-item dropdown">
+                                    <Link 
+                                        className="nav-link dropdown-toggle" 
+                                        role="button"
+                                        data-bs-toggle="dropdown"
+                                        to="/admin"
+                                    > Admin </Link>
+                                    <ul className="dropdown-menu">
+                                        { Object.keys(adminData).length > 0 ? (
+                                            <>
+                                                <li>
+                                                    <Link className="dropdown-item" to="/admin/account"> Account </Link>
+                                                </li>
+                                                <li>
+                                                    <Link className="dropdown-item" to="/admin/students"> Students </Link>
+                                                </li>
+                                                <li>
+                                                    <Link className="dropdown-item" to="/admin/courses"> Courses </Link>
+                                                </li>
+                                                <li>
+                                                    <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>
+                                                </li>
+                                                <li>
+                                                    <Link className="dropdown-item" to="#" onClick={handleAdminLogout}> Logout </Link>
+                                                </li>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <li>
+                                                    <Link className="dropdown-item" to="/admin/register"> Register </Link>
+                                                </li>
+                                                <li>
+                                                    <Link className="dropdown-item" to="/admin/login"> Login </Link>
+                                                </li>
+                                            </>
+                                        ) }
+                                    </ul>
+                                </li>
+                            ) }
 
-                                                <Link className="dropdown-item" to="#" onClick={ handleStudentLogout }>Logout </Link>
+                            { !Object.keys(adminData).length > 0 && (
+                                <li className="nav-item dropdown">
+                                    <Link 
+                                        className="nav-link dropdown-toggle" 
+                                        role="button" 
+                                        data-bs-toggle="dropdown" 
+                                        to="/student"
+                                    > Student </Link>
+                                    <ul className="dropdown-menu">
+                                        { Object.keys(studentData).length > 0 ? (
+                                            <>
+                                                <li>
+                                                    <Link className="dropdown-item" to="/student/account"> Account </Link>
+                                                </li>
+                                                <li>
+                                                    <Link className="dropdown-item" to="/courses"> Courses </Link>
+                                                </li>
+                                                <li>
+
+                                                    <Link className="dropdown-item" to="#" onClick={ handleStudentLogout }>Logout </Link>
+                                                </li>
+                                            </>
+                                        ) : (
+                                            <li>
+                                                <Link className="dropdown-item" to="/student/Login"> Login </Link>
                                             </li>
-                                        </>
-                                        
-                                    )}
-                                </ul>
-                            </li>
+                                        )}
+                                    </ul>
+                                </li>
+                            ) }
                         </ul>
                     </div>
                 </div>
