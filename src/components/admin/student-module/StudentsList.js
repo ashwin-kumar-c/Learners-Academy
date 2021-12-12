@@ -21,7 +21,7 @@ const StudentsList = (props) => {
                         <tr>
                             <td> Name </td>
                             <td> Email </td>
-                            <td> Allowed </td>
+                            <td> Role </td>
                             <td> Details </td>
                             <td> Edit </td>
                             <td> Delete </td>  
@@ -32,8 +32,8 @@ const StudentsList = (props) => {
                             return (
                                 <tr key={ student._id }>
                                     <td>{ student.name }</td>
-                                    <td>{ student.email }</td>
-                                    <td>{ String(student.isAllowed) }</td>
+                                            <td>{ student.email }</td>
+                                            <td>{student.role}</td>
                                     <td>
                                         <StudentDetails {...student} />
                                     </td>

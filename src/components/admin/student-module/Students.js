@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import Heading from '../reusables/Heading'
-import { startGetStudents } from '../../actions/adminActions'
+import Heading from '../../reusables/Heading'
+import { startGetStudents } from '../../../actions/adminActions'
 import StudentsList from './StudentsList'
-import Loader from '../reusables/Loader'
+import Loader from '../../reusables/Loader'
 
 const Students = (props) => {
 
@@ -24,17 +24,16 @@ const Students = (props) => {
             { studentsData.length > 0 ? (
                 <>
                     <div className="row">
-                        <div className="col-10">
+                        <div className="col-10 pt-5">
                             <Heading
-                                className="pt-5"
                                 type="h3"
                                 title={ `Total Students - ${studentsData.length}` }
                             />
                         </div>    
                         <div className="col-2 pt-5">
-                            <Link to="/admin/students/register" className="btn btn-primary "> New Student </Link>
+                            <Link to="/admin/students/register" className="btn btn-outline-primary "> New Student </Link>
                         </div>    
-                     </div>
+                    </div>
 
                     <StudentsList/>
                 </>

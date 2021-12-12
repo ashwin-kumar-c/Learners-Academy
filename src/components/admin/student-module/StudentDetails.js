@@ -4,7 +4,6 @@ import { Modal, Button } from 'react-bootstrap'
 const StudentDetails = (props) => {
     const { name, email, isAllowed, role } = props
     const [ show, setShow ] = useState(false)
-    // console.log(email)
 
     const handleShow = () => setShow(true)
     const handleClose = () => setShow(false)
@@ -55,4 +54,4 @@ const StudentDetails = (props) => {
     )
 }
 
-export default StudentDetails
+export default StudentDetails 

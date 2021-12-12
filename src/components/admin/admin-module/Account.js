@@ -1,10 +1,10 @@
 import React, { useState} from 'react'
 import { useSelector } from 'react-redux'
-import Heading from '../reusables/Heading'
-import Paragraph from '../reusables/Paragraph'
+import Heading from '../../reusables/Heading'
+import Paragraph from '../../reusables/Paragraph'
 import Register from './Register'
-import Button from '../reusables/Button' 
-import Loader from '../reusables/Loader'
+import Button from '../../reusables/Button' 
+import Loader from '../../reusables/Loader'
 
 const Account = (props) => {
     const [ toggle, setToggle ] = useState(false)

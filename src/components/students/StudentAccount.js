@@ -5,14 +5,14 @@ import Loader from '../reusables/Loader'
 import Paragraph from '../reusables/Paragraph'
 
 const StudentAccount = (props) => {
-    const data = useSelector((state) => {
-        return state.students.data
+    const students = useSelector((state) => {
+        return state.students
     })
 
     return (
         <div className="container">
             
-            { Object.keys(data).length > 0 ? (
+            { Object.keys(students.data).length > 0 ? (
                 <>
                     <Heading
                     className="mt-5 mb-4"
@@ -21,15 +21,15 @@ const StudentAccount = (props) => {
                     />
                     <Paragraph
                         className="lead"
-                        text={`Name - ${data.name}`}
+                        text={`Name - ${students.data.name}`}
                     />
                     <Paragraph
                         className="lead"
-                        text={`Email - ${data.email}`}
+                        text={`Email - ${students.data.email}`}
                     />
                     <Paragraph
                         className="lead"
-                        text={`Courses Enrolled - ${data.courses.length}`}
+                        text={`Courses Enrolled - ${students.data.courses.length}`}
                     />
                 </>
             ) : (
@@ -37,7 +37,7 @@ const StudentAccount = (props) => {
                     className="mt-5"
                 />
             ) }
-            
+            { students.errors.studentAccountError && <div className="text-danger pt-5">{ students.errors.studentAccountError }</div> }
         </div>
     )
 }

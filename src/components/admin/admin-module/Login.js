@@ -2,10 +2,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import Heading from '../reusables/Heading'
-import Input from '../reusables/Input'
-import Button from '../reusables/Button'
-import { startLoginAdmin } from '../../actions/adminActions'
+import Heading from '../../reusables/Heading'
+import Input from '../../reusables/Input'
+import Button from '../../reusables/Button'
+import { startLoginAdmin } from '../../../actions/adminActions'
 
 const Login = (props) => {
 

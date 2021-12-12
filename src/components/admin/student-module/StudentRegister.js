@@ -1,12 +1,12 @@
 import React from 'react'
-import { useFormik, Field, Form } from 'formik'
+import { useFormik } from 'formik'
+import { FormCheck, FormGroup } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Yup from 'yup'
-import Heading from '../reusables/Heading'
-import Input from '../reusables/Input'
-import Button from '../reusables/Button'
-import Label from '../reusables/Label'
-import { startRegisterStudent, startUpdateStudent } from '../../actions/adminActions'
+import Heading from '../../reusables/Heading'
+import Input from '../../reusables/Input'
+import Button from '../../reusables/Button'
+import { startRegisterStudent, startUpdateStudent } from '../../../actions/adminActions'
 
 const StudentRegister = (props) => {
     const { name: studentName, email: studentEmail, isAllowed: studentIsAllowed, role, _id, handleClose } = props
@@ -30,7 +30,7 @@ const StudentRegister = (props) => {
             name: studentName ? studentName : '',
             email: studentEmail ? studentEmail : '',
             password: '',
-            isAllowed: studentIsAllowed ? studentIsAllowed : true,
+            isAllowed: studentIsAllowed ? studentIsAllowed : false,
             checked: []
         },
         onSubmit: (values, { resetForm }) => {
@@ -112,20 +112,15 @@ const StudentRegister = (props) => {
                     </div>
                 ) }
 
-                <div className="form-check">
-                    <Label 
-                        className="form-check-label"
-                        text="Allowed"
-                    />
-
-                    <Input
-                        className="form-check-input"
-                        type="checkbox"
-                        checked={values.isAllowed}   
-                        handleChange={handleChange}
+                <FormGroup>
+                    <FormCheck 
+                        type="checkbox" 
+                        label="Allowed?" 
+                        checked={values.isAllowed} 
+                        onChange={handleChange} 
                         name="isAllowed"
                     />
-                </div>
+                </FormGroup>
 
                 <Input
                     className="btn btn-outline-primary mt-3 me-4"

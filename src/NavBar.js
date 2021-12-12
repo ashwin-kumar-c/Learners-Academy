@@ -5,13 +5,13 @@ import swal from 'sweetalert'
 import jwt_decode from 'jwt-decode'
 import Heading from './components/reusables/Heading'
 import Home from './components/Home'
-import Register from './components/admin/Register'
-import Login from './components/admin/Login'
-import Students from './components/admin/Students'
-import Account from './components/admin/Account'
-import Dashboard from './components/admin/Dashboard'
-import Courses from './components/Courses'
-import StudentRegister from './components/admin/StudentRegister'
+import Register from './components/admin/admin-module/Register'
+import Login from './components/admin/admin-module/Login'
+import Students from './components/admin/student-module/Students'
+import Account from './components/admin/admin-module/Account'
+import Dashboard from './components/common-module/dashboard-module/Dashboard'
+import Courses from './components/common-module/course-module/Courses'
+import StudentRegister from './components/admin/student-module/StudentRegister'
 import NotFound from './components/NotFound'
 import StudentAccount from './components/students/StudentAccount'
 import StudentLogin from './components/students/StudentLogin'
@@ -66,7 +66,7 @@ const NavBar = (props) => {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
                     <Heading
                         className="navbar-brand"
@@ -105,7 +105,7 @@ const NavBar = (props) => {
                                                     <Link className="dropdown-item" to="/admin/students"> Students </Link>
                                                 </li>
                                                 <li>
-                                                    <Link className="dropdown-item" to="/admin/courses"> Courses </Link>
+                                                    <Link className="dropdown-item" to="/courses"> Courses </Link>
                                                 </li>
                                                 <li>
                                                     <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>

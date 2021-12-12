@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import Button from '../reusables/Button'
-import { startDeleteStudent } from '../../actions/adminActions'
+import Button from '../../reusables/Button'
+import { startDeleteStudent } from '../../../actions/adminActions'
 
 const DeleteStudent = (props) => {
     const {_id} = props
