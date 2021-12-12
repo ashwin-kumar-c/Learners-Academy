@@ -2,6 +2,7 @@ const adminInitialState = {
     isLoading: false,
     adminData: {},
     studentsData: [],
+    coursesData: [],
     errors: {}
 }
 
@@ -32,6 +33,9 @@ const adminReducer = (state = adminInitialState, action) => {
             })
             return {...state, studentsData: [...result]}
         }
+        case 'SET_COURSES': {
+            return {...state, coursesData: [...action.payload]}
+        }
         case 'REGISTER_ERROR': {
             return {...state, errors: {...state.errors, register: action.payload}}
         }
@@ -52,6 +56,9 @@ const adminReducer = (state = adminInitialState, action) => {
         }
         case 'DELETE_STUDENT_ERROR': {
             return {...state, errors: {...state.errors, deleteStudentError: action.payload}}
+        }
+        case 'GET_COURSES_ERROR': {
+            return {...state, errors: {...state.errors, getCoursesError: action.payload}}
         }
         default: {
             return {...state}

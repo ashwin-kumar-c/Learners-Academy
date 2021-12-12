@@ -13,7 +13,7 @@ const StudentRegister = (props) => {
 
     const dispatch = useDispatch()
 
-    const serverError = useSelector((state) => {
+    const serverError = useSelector((state) => { 
         return state.admin.errors
     })
 

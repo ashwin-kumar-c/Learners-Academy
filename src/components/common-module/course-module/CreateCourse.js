@@ -1,11 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
 import Textarea from '../../reusables/Textarea'
-import { Form } from 'react-bootstrap'
 import Input from '../../reusables/Input'
+import { startGetCourses } from '../../../actions/adminActions'
 
 const CreateCourse = (props) => {
+    const { handleClose } = props
+
+    const dispatch = useDispatch()
+
+    const admin = useSelector((state) => {
+        return state.admin
+    })
+
+    const courseCategory = ['HTML', 'CSS', 'Javascript', 'ReactJS', 'NodeJS', 'ExpressJS', 'MangoDB']
+    const courseLevel = ['Beginner', 'Intermediate', 'Expert']
+
 
     const validationSchema = Yup.object({
         name: Yup.string().required('Required'),
@@ -13,11 +27,11 @@ const CreateCourse = (props) => {
         duration: Yup.number().required('Required'),
         category: Yup.string().required('Required'),
         validity: Yup.string().required('Required'),
-        // level: Yup.string().required('Required'),
+        level: Yup.string().required('Required'),
         author: Yup.string().required('Required')
     })
 
-    const { handleChange, handleBlur, handleSubmit, values, touched, errors } = useFormik({
+    const { handleChange, handleBlur, handleSubmit, values, setValues, touched, errors } = useFormik({
         initialValues: {
             name: '',
             description: '',
@@ -29,13 +43,20 @@ const CreateCourse = (props) => {
             author: ''
         },
         onSubmit: (values, { resetForm }) => {
+            const closeModal = () => {
+                handleClose()
+            }
             console.log('course', values)
+            if(!admin.adminData.role === 'admin') {
+                // dispatch(startGetCourses(values, resetForm, closeModal))
+            }
         },
         validationSchema   
     })
 
-    const courseCategory = ['HTML', 'CSS', 'Javascript', 'ReactJS', 'NodeJS', 'ExpressJS', 'MangoDB']
-    const courseLevel = ['Beginner', 'Intermediate', 'Expert']
+    const handleDateChange = (date) => {
+        setValues({...values, releaseDate: date})
+    }  
 
     return (
         <div className="container">
@@ -49,7 +70,7 @@ const CreateCourse = (props) => {
                             handleChange={ handleChange }
                             handleBlur={ handleBlur }
                             name="name"
-                            placeholder="Enter Course Name"
+                            placeholder="Enter Course Name *"
                         />
                         { touched.name && errors.name ? <div className="form-text">{ errors.name }</div> : null }
                     </div>
@@ -61,8 +82,9 @@ const CreateCourse = (props) => {
                             className="form-control"
                             value={ values.description }
                             handleChange={handleChange}
+                            handleBlur={handleBlur}
                             name="description"
-                            placeholder="Brief description about course"
+                            placeholder="Brief description about course *"
                         />
                         { touched.description && errors.description ? <div className="form-text">{ errors.description }</div> : null }
                     </div>
@@ -77,7 +99,7 @@ const CreateCourse = (props) => {
                             handleChange={ handleChange }
                             handleBlur={ handleBlur }
                             name="duration"
-                            placeholder="Course Duration"
+                            placeholder="Course Duration *"
                         />
                         { touched.duration && errors.duration ? <div className="form-text">{ errors.duration }</div> : null }
                     </div>
@@ -92,7 +114,7 @@ const CreateCourse = (props) => {
                             onBlur={ handleBlur }
                             name="category"
                         >
-                            <option value="">Select Course Category</option>
+                            <option value="">Select Course Category *</option>
                             { courseCategory.map((course, i) => {
                                 return (
                                     <option key={i} value={course}>{ course }</option>
@@ -112,7 +134,7 @@ const CreateCourse = (props) => {
                             handleChange={ handleChange }
                             handleBlur={ handleBlur }
                             name="validity"
-                            placeholder="Course Validity"
+                            placeholder="Course Validity *"
                         />
                         { touched.validity && errors.validity ? <div className="form-text">{ errors.validity }</div> : null }
                     </div>
@@ -127,7 +149,7 @@ const CreateCourse = (props) => {
                             onBlur={ handleBlur }
                             name="level"
                         >
-                            <option value="">Select Course Level</option>
+                            <option value="">Select Course Level *</option>
                             { courseLevel.map((lvl, i) => {
                                 return (
                                     <option key={i} value={lvl}>{ lvl }</option>
@@ -147,11 +169,21 @@ const CreateCourse = (props) => {
                             handleChange={ handleChange }
                             handleBlur={ handleBlur }
                             name="author"
-                            placeholder="Course Author"
+                            placeholder="Course Author *"
                         />
                         { touched.author && errors.author ? <div className="form-text">{ errors.author }</div> : null }
                     </div>
-                </div>      
+                </div>   
+
+                <div>
+                    <DatePicker 
+                        selected={ values.releaseDate } 
+                        onChange={ handleDateChange }
+                        dateFormat="dd/MM/yyyy"
+                        minDate={ new Date() }
+                        placeholderText="  Pick release date"
+                    />
+                </div>   
 
                 <Input
                     className="btn btn-outline-primary mt-3 me-4"

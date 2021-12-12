@@ -44,6 +44,7 @@ export const startLoginAdmin = (loginData, resetForm, redirect) => {
                     localStorage.setItem('admin-token', result.token)
                     dispatch(startGetAdmin(result.token))
                     dispatch(startGetStudents(result.token))
+                    dispatch(startGetCourses(result.token))
                     resetForm()
                     redirect()
                 }
@@ -71,6 +72,7 @@ export const startGetAdmin = (token) => {
             .then((response) => {
                 const result = response.data
                 dispatch(setAdmin(result))
+                localStorage.setItem('role', result.role)
             })
             .catch((error) => {
                 dispatch(accountError(error.message))
@@ -268,6 +270,37 @@ export const removeStudent = (_id) => {
 export const deleteStudentError = (message) => {
     return {
         type: 'DELETE_STUDENT_ERROR',
+        payload: message
+    }
+}
+
+export const startGetCourses = (token) => {
+    return (dispatch) => {
+        axios.get('https://dct-e-learning.herokuapp.com/api/courses', {
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                dispatch(setCourses(result))
+            })
+            .catch((error) => {
+                dispatch(getCoursesError(error.message))
+            })
+    }
+}
+
+export const setCourses = (courses) => {
+    return {
+        type: 'SET_COURSES',
+        payload: courses
+    }
+}
+
+export const getCoursesError = (message) => {
+    return {
+        type: 'GET_COURSES_ERROR',
         payload: message
     }
 }

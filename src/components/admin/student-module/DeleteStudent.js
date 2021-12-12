@@ -15,7 +15,7 @@ const DeleteStudent = (props) => {
     return (
         <Button
             type="button"
-            className="btn btn-danger"
+            className="btn btn-outline-danger"
             value="Delete"
             handleClick={handleDelete}
         />
