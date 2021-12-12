@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
+import ModalComp from '../../reusables/ModalComp'
 
 const StudentDetails = (props) => {
     const { name, email, isAllowed, role } = props
@@ -10,46 +11,35 @@ const StudentDetails = (props) => {
 
     return (
         <>
-            <Button variant="info" onClick={handleShow}>
-                Details
-            </Button>
-
-            <Modal 
-                show={ show } 
-                onHide={ handleClose }
-                size="md" 
-                aria-labelledby="contained-modal-title-vcenter" 
-                centered
-            >
-                <Modal.Header>
-                    <Modal.Title><h4 className="text-primary">{ name }'s Details</h4></Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>    
+            <ModalComp
+                showVariant="outline-info"
+                handleShow={ handleShow }
+                showText="Details"
+                show={ show }
+                handleClose={handleClose}
+                size="md"
+                titleComponent={ <h4>{ name }'s Details</h4> }
+                bodyComponent={
                     <>
-                    <div className="d-flex justify-content-between">
-                        <h5>Name </h5> <p className="lead">{ name }</p>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <h5>Email ID</h5> <p className="lead">{ email }</p>
-                    </div>
-                    
-                    <div className="d-flex justify-content-between">
-                        <h5>Allowed</h5> <p className="lead">{ String(isAllowed) }</p>
-                    </div>
+                        <div className="d-flex justify-content-between">
+                            <h5>Name </h5> <p className="lead">{ name }</p>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <h5>Email ID</h5> <p className="lead">{ email }</p>
+                        </div>
+                        
+                        <div className="d-flex justify-content-between">
+                            <h5>Allowed</h5> <p className="lead">{ String(isAllowed) }</p>
+                        </div>
 
-                    <div className="d-flex justify-content-between">
-                        <h5>Role</h5> <p className="lead">{ role }</p>
-                    </div>
-                    </> 
-                </Modal.Body>
-
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+                        <div className="d-flex justify-content-between">
+                            <h5>Role</h5> <p className="lead">{ role }</p>
+                        </div>
+                    </>
+                }
+                hideVariant="outline-secondary"
+                hideText="close"
+            />
         </>
     )
 }

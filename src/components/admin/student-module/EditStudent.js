@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Modal, Button } from 'react-bootstrap'
 import ModalComp from '../../reusables/ModalComp'
 import StudentRegister from './StudentRegister'
 
