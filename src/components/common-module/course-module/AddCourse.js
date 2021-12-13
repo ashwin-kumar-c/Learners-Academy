@@ -9,11 +9,11 @@ const AddCourse = (props) => {
     const handleClose = () => setShow(false)
 
     return (
-        <div className="text-center">
+        <div>
             <ModalComp
                 showVariant="outline-primary"
                 handleShow={ handleShow }
-                showText="+ New Course"
+                showText="New Course"
                 show={ show }
                 handleClose={ handleClose }
                 titleComponent={ <h4>Create Course</h4> }
