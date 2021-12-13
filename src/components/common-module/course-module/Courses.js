@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import AddCourse from './AddCourse'
 import Heading from '../../reusables/Heading'
+import { startGetCourses } from '../../../actions/adminActions'
 
 const Courses = (props) => {
-    const [ userRole, setUserRole ] = useState('')
-    const [ courseData, setCourseData ] = useState([])
-    console.log('ur', userRole)  
-    console.log('cd', courseData)       
+    // const [ userRole, setUserRole ] = useState('')
+    // const [ courseData, setCourseData ] = useState([])
+    // console.log('cd', courseData)   
+    
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const token = localStorage.getItem('admin-token')
+        if(token) {
+            dispatch(startGetCourses(token))
+        }
+    }, [])
 
     const adminCourseData = useSelector((state) => {
         return state.admin.coursesData
@@ -17,16 +26,6 @@ const Courses = (props) => {
         return state.admin.errors
     })
 
-    useEffect(() => {
-        const role = localStorage.getItem('role')
-        setUserRole(role)
-    }, [])
-
-    useEffect(() => {
-        if(userRole === 'admin') {
-            setCourseData(adminCourseData)
-        }
-    }, [])
 
     return (
         <div className="container my-5">
@@ -34,7 +33,7 @@ const Courses = (props) => {
                 <div className="col-10 pt-5">
                     <Heading
                         type="h3"
-                        title={`All courses - ${courseData.length}`}
+                        title={`All courses - ${adminCourseData.length}`}
                     />
                 </div>
                 <div className="col-2 pt-5">

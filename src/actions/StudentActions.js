@@ -48,9 +48,9 @@ export const StartGetStudent = (_id, token) => {
             .then((response) => {
                 const result = response.data
                 dispatch(setStudent(result))
+                // localStorage.setItem('role', result.role)
             })
             .catch((error) => {
-                console.log(error.message)
                 dispatch(studentAccountError(error.message))
             })
     }

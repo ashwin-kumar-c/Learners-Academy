@@ -36,6 +36,9 @@ const adminReducer = (state = adminInitialState, action) => {
         case 'SET_COURSES': {
             return {...state, coursesData: [...action.payload]}
         }
+        case 'ADD_COURSE': {
+            return {...state, coursesData: [...state.coursesData, {...action.payload}]}
+        }
         case 'REGISTER_ERROR': {
             return {...state, errors: {...state.errors, register: action.payload}}
         }
@@ -59,6 +62,9 @@ const adminReducer = (state = adminInitialState, action) => {
         }
         case 'GET_COURSES_ERROR': {
             return {...state, errors: {...state.errors, getCoursesError: action.payload}}
+        }
+        case 'CREATE_COURSE_ERROR': {
+            return {...state, errors: {...state.errors, createCourseError: action.payload}}
         }
         default: {
             return {...state}

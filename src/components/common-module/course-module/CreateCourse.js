@@ -6,19 +6,19 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import Textarea from '../../reusables/Textarea'
 import Input from '../../reusables/Input'
-import { startGetCourses } from '../../../actions/adminActions'
+import { startCreateCourse } from '../../../actions/adminActions'
 
 const CreateCourse = (props) => {
     const { handleClose } = props
 
     const dispatch = useDispatch()
 
-    const admin = useSelector((state) => {
-        return state.admin
+    const serverError = useSelector((state) => {
+        return state.admin.errors
     })
 
-    const courseCategory = ['HTML', 'CSS', 'Javascript', 'ReactJS', 'NodeJS', 'ExpressJS', 'MangoDB']
-    const courseLevel = ['Beginner', 'Intermediate', 'Expert']
+    const courseCategory = ['HTML', 'CSS', 'javascript', 'reactjs', 'nodejs','expressjs', 'mongodb']
+    const courseLevel = ['beginner', 'intermediate', 'expert']
 
 
     const validationSchema = Yup.object({
@@ -46,10 +46,8 @@ const CreateCourse = (props) => {
             const closeModal = () => {
                 handleClose()
             }
-            console.log('course', values)
-            if(!admin.adminData.role === 'admin') {
-                // dispatch(startGetCourses(values, resetForm, closeModal))
-            }
+            dispatch(startCreateCourse(values, resetForm, closeModal))
+            
         },
         validationSchema   
     })
@@ -129,7 +127,7 @@ const CreateCourse = (props) => {
                     <div className="col-sm-6">
                         <Input
                             className="form-control"
-                            type="text"       
+                            type="number"       
                             value={ values.validity }
                             handleChange={ handleChange }
                             handleBlur={ handleBlur }
@@ -190,7 +188,9 @@ const CreateCourse = (props) => {
                     type="submit"
                     value="Save"
                 />    
+                { serverError.createCourseError && <div className="text-danger mt-5">{ serverError.createCourseError }</div> }
             </form>
+            
         </div> 
     )
 }

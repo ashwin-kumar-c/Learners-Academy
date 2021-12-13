@@ -161,7 +161,6 @@ export const startGetStudents = (token) => {
             }
         })
             .then((response) => {
-                // console.log(response.data)
                 const result = response.data
                 dispatch(setStudents(result.reverse()))
             })
@@ -199,7 +198,6 @@ export const startUpdateStudent = (editedData, resetForm, _id, closeModal) => {
                 resetForm()
                 closeModal()
                 swal({
-                    // title: "Success",
                     title: `Successfully edited student's profile`,
                     icon: 'success',
                     button: 'Cancel'
@@ -278,7 +276,7 @@ export const startGetCourses = (token) => {
     return (dispatch) => {
         axios.get('https://dct-e-learning.herokuapp.com/api/courses', {
             headers: {
-                'Authorization': token
+                "Authorization": token
             }
         })
             .then((response) => {
@@ -301,6 +299,51 @@ export const setCourses = (courses) => {
 export const getCoursesError = (message) => {
     return {
         type: 'GET_COURSES_ERROR',
+        payload: message
+    }
+}
+
+export const startCreateCourse = (courseData, resetForm, closeModal) => {
+    return (dispatch) => {
+        axios.post('https://dct-e-learning.herokuapp.com/api/courses', courseData, {
+            headers: {
+                "Authorization" : localStorage.getItem('admin-token')
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if(result.hasOwnProperty('errors')) {
+                    swal({
+                        title: result.errors,
+                        button: 'Cancel'
+                    })
+                } else {
+                    swal({
+                        title: 'Successfully created new course',
+                        icon: 'success',
+                        button: 'Cancel'
+                    })
+                    dispatch(addCourse(result))
+                    resetForm()
+                    closeModal()
+                }
+            })
+            .catch((error) => {
+                dispatch(createCourseError(error.message))
+            })
+    }   
+}
+
+export const addCourse = (course) => {
+    return {
+        type: 'ADD_COURSE',
+        payload: course
+    }
+}
+
+export const createCourseError = (message) => {
+    return {
+        type: 'CREATE_COURSE_ERROR',
         payload: message
     }
 }
