@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import Button from '../../reusables/Button'
 import Image from '../../reusables/Image'
 import { AiFillInfoCircle } from "react-icons/ai"
+import CourseDetails from './CourseDetails'
 import css_logo from '../../../assests/css_logo.png'
 import html_logo from '../../../assests/html_logo.png'
 import javascript_logo from '../../../assests/javascript_logo.png'
@@ -69,11 +70,8 @@ const CourseCards = (props) => {
 
                             <div className="card-body">
                                 <p className="card-text lead">{ course.name }</p >
-                                <Button 
-                                    type="button"
-                                    className="btn px-0"
-                                    value={<AiFillInfoCircle size="1.5rem"/>}    
-                                />
+                                <CourseDetails {...course}/>
+                                
                             </div>
                         </div>
                     </div>

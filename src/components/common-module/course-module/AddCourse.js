@@ -9,7 +9,7 @@ const AddCourse = (props) => {
     const handleClose = () => setShow(false)
 
     return (
-        <div>
+        <>
             <ModalComp
                 showVariant="outline-primary"
                 handleShow={ handleShow }
@@ -23,7 +23,7 @@ const AddCourse = (props) => {
                 hideText="Close"
                 size="lg"
             />
-        </div>
+        </>
     )
 }
 
